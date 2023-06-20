@@ -11,7 +11,8 @@ import org.junit.jupiter.api.Test;
 class RateDiscountPolicyTest {
   
   RateDiscountPolicy rateDiscountPolicy = new RateDiscountPolicy();
-
+  
+  //어찌돈겨
   @Test
   @DisplayName("VIP는 10%할인이 적용되야한다.")
   void VIP_O() {
