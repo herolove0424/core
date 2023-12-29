@@ -3,8 +3,8 @@ package hello.core.order;
 public class Order {
   private Long memberId;
   private String itemName;
-  private int itemPrice;
-  private int discountPrice;
+  private int itemPrice; //정상가
+  private int discountPrice; //할인금액
 
   public Order(Long memberId, String itemName, int itemPrice, int discountPrice) {
     this.memberId = memberId;
@@ -13,8 +13,7 @@ public class Order {
     this.discountPrice = discountPrice;
   }
 
-  //계산 로진
-
+  //계산 로진 (최종 금액)
   public int calculatePrice(){
     return itemPrice - discountPrice;
   }

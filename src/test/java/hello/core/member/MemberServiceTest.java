@@ -8,9 +8,11 @@ import org.junit.jupiter.api.Test;
 
 public class MemberServiceTest {
 
-  MemberService memberService ;
+  //MemberService memberService = new MemberServiceImpl();
+  MemberService memberService;
+
   @BeforeEach
-  public  void beforeEach(){
+  public void beforeEach(){
     AppConfig appConfig = new AppConfig();
     memberService = appConfig.memberService();
   }

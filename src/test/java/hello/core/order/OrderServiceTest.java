@@ -10,12 +10,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class OrderServiceTest {
-  AppConfig appConfig = new AppConfig();
+
+ // MemberService memberService = new MemberServiceImpl();
   MemberService memberService;
+  //OrderService orderService = new OrderServiceImpl();
   OrderService orderService;
 
   @BeforeEach
-  public  void beforeEach(){
+  public void beforeEach(){
     AppConfig appConfig = new AppConfig();
     memberService = appConfig.memberService();
     orderService = appConfig.orderService();
@@ -23,7 +25,7 @@ public class OrderServiceTest {
 
   @Test
   void createOrder(){
-    Long memberId = 1L;
+    Long memberId = 1L; //long(프리미티브타입)이 아니라 Long을 쓰는 이유 long은 null값이 못들어간다
     Member memberA = new Member(memberId, "memberA", Grade.VIP);
     memberService.join(memberA);
 
