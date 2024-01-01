@@ -1,5 +1,9 @@
 package hello.core.member;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
 public class MemberServiceImpl implements MemberService{
 
   //final쓰는 이유? MemberRepository 타입 객체를 다른 객체로 바꾸지 못하도록 final사용
@@ -12,6 +16,7 @@ public class MemberServiceImpl implements MemberService{
   private final MemberRepository memberRepository ;
 
 
+  @Autowired
   public MemberServiceImpl(MemberRepository memberRepository) {
     this.memberRepository = memberRepository;
   }

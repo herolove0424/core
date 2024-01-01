@@ -5,7 +5,9 @@ import hello.core.member.MemberRepository;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MemoryMemberRepository implements MemberRepository {
   
   //map은 동시성 이슈가 발생할 수 있으므로 이런 경우 ConcurrentHashMap 이용

@@ -26,7 +26,8 @@ public class AppConfig {
   @Bean
   public OrderService orderService(){
     System.out.println("AppConfig.orderService");
-    return new OrderServiceImpl(memberRepository(), discountPolicy());
+    return new OrderServiceImpl(memberRepository(), discountPolicy()); //의존관계 주입 중 필드 주입 테스트를 위해 OrderServiceImpl 에서 생성자를 없애면서, 여기 코드 변경
+    //return null;
   }
   @Bean
   public DiscountPolicy discountPolicy() {
