@@ -6,10 +6,13 @@ import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
+//@RequiredArgsConstructor //역할? final이 붙은 변수를 가지는 생성자를 만들어줘
 public class OrderServiceImpl implements OrderService{
 
   /**
@@ -18,6 +21,7 @@ public class OrderServiceImpl implements OrderService{
   //private DiscountPolicy discountPolicy = new RateDiscountPolicy();
   //private DiscountPolicy discountPolicy = new FixDiscountPolicy();
   //이 코드로 사용
+
   private final DiscountPolicy discountPolicy; //아래 SETTER을 위해 final 삭제 (수정자 주입) -> //의존관계 주입 3) 필드 주입을 위해 setter 및 생성자 삭제 후 여기에  @Autowired 를 붙임 -> 단 이렇게 할 경우 임의 자바 테스트 코드가 돌아가지 않아, setter를 또 만들어줘야 하기 때문에, 이렇게 쓰기보단 수정자 주입으로 쓰는게 낫다 ~
 
   //private MemberRepository memberRepository = new MemoryMemberRepository();
@@ -46,13 +50,32 @@ public class OrderServiceImpl implements OrderService{
 
   //의존관계 주입 1) 생성자 주입, 생성자가 1개일 경우, @Autowired를 안붙여도 자동으로 붙음
   // setter메소드 +@Autowired 조합(수정자 주입) 사용 시, 아래 생성자 코드 없어도 상관없음. 현재는 없으면 코드 오류가 나기 때문에 나둠
-  @Autowired
-  public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy ) {
+
+  @Autowired //생성자가 하나인 경우 생략 가능
+  //위의 @RequiredArgsConstructor  로 인해 아래 생성자도 생략 가능
+  public OrderServiceImpl(MemberRepository memberRepository,  DiscountPolicy discountPolicy ) {
     System.out.println("memberRepository 생성자 = " + memberRepository);
     System.out.println("discountPolicy 생성자 = " + discountPolicy);
     this.memberRepository = memberRepository;
     this.discountPolicy = discountPolicy;
   }
+
+  //1. 조회 빈이 2개 이상일때 > 파라미터 명으로 매칭
+ /* public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy rateDiscountPolicy ) {
+    System.out.println("memberRepository 생성자 = " + memberRepository);
+    System.out.println("discountPolicy 생성자 = " + rateDiscountPolicy);
+    this.memberRepository = memberRepository;
+    this.discountPolicy = rateDiscountPolicy;
+  }*/
+
+  //2. 조회 빈이 2개 이상일때 > @Qualifier를 적용해서 찾기
+ /* @Autowired //생성자가 하나인 경우 생략 가능
+  public OrderServiceImpl(MemberRepository memberRepository, @Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy ) {
+    System.out.println("memberRepository 생성자 = " + memberRepository);
+    System.out.println("discountPolicy 생성자 = " + discountPolicy);
+    this.memberRepository = memberRepository;
+    this.discountPolicy = discountPolicy;
+  }*/
 
   //의존관계 주입 4) 일반 메서드 주입
  /* @Autowired
