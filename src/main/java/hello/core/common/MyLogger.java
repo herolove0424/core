@@ -5,10 +5,13 @@ import java.util.UUID;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 @Component
-@Scope(value = "request")
+//proxyMode = ScopedProxyMode.TARGET_CLASS를 추가하므로써 , MyLogger의 가짜 프록시 클래스를 만들어두고
+//request와 상관없이 가짜 프록시 클래스를 빈에 미리 주입해 둘수 있다
+@Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class MyLogger {
 
   private String uuid;
